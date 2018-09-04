@@ -1,0 +1,56 @@
+{% extends "base.html "%}
+
+{% block content %}
+		{% if is_valid %}
+			<div class="alert alert-success" role="alert">
+				<p id="success">Inscrição realizada com sucesso!</p>
+			</div>
+		{% endif %}
+		<div class="formulario">
+			<form class="form-insc" action="/cadastro/" method="post">{% csrf_token %}
+				<h3>Inscreva-se!</h3>
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+				  </div>
+				  {{ form.nome }}
+				</div>
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+				  </div>
+				  {{ form.email }}
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+				    <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+				  </div>
+				  {{ form.senha }}
+				</div>
+				<div class="form-group">
+			    {{ form.idade }}
+			  </div>
+			  <div class="form-group">
+			    {{ form.cidade }}
+			  </div>
+				<div class="form-group">
+			    {{ form.uf }}
+			  </div>
+				<div class="form-group input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text" id="basic-addon1"><i class="fas fa-id-card"></i></span>
+				  </div>
+				  {{ form.cpf }}
+				</div>
+				<div class="form-group">
+					{{ form.rg }}
+				</div>
+				<div class="form-group">
+					{{ form.telefone }}
+				</div>
+				<button type="submit" id="btn-topo" class="btn btn-primary">Enviar</button>
+				<a href="{% url 'cadastro:login' %}">Eu já sou um membro</a>
+			</form>
+		</div>
+
+{% endblock %}

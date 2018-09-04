@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<div class="container">
+	  <form class="form-inline search-bar" action="{% url 'core:eventos-lista' %}" method="post">{% csrf_token %}
+	    <input class="form-control mr-sm-2" name="buscar_event" type="search" placeholder="Pesquisar o nome do evento" aria-label="Search">
+	    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+	  </form>
+  </div>
+
+  	<section class="cards">
+		<div class="card text-white mb-3" style="max-width: 18rem;">
+			<div class="card-header title-color-blue ">Inscrição</div>
+			  <div class="card-body">
+			    <h5 class="card-title text-black ">Primary card title</h5>
+			   	<p class="card-text text-black">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+		</div>
+
+		<div class="card" style="width: 18rem;">
+			<div class="card-header title-color-green">Noticias</div>
+			<div class="card-body">
+				{% for noticia in noticias %}
+					<h5 class="card-title">{{ noticia.titulo }}</h5>
+					<h6 class="card-subtitle mb-2 text-muted">Publicado em: {{ noticia.data_public }}</h6>
+					<h6 class="card-subtitle mb-2 text-muted">~Autor {{ noticia.autor }}</h6><hr>
+					<p class="card-text">{{ noticia.texto }}</p><hr>
+				{% endfor %}
+
+			</div>
+		</div>
+
+	</section>
+
+{% endblock %}

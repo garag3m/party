@@ -1,0 +1,36 @@
+{% extends "base.html "%}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+		<div class="formulario">
+			<h2>Log in</h2>
+		  <form method="post">
+		    {% csrf_token %}
+
+		    {% for hidden in form.hidden_fields %}
+		      {{ hidden }}
+		    {% endfor %}
+
+				{% for field in form.visible_fields %}
+		      <div class="form-group">
+		        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+		        {% render_field field class="form-control" placeholder=field.label %}
+		        {% for error in field.errors %}
+		          <span class="help-block">{{ error }}</span>
+		        {% endfor %}
+		      </div>
+				{% endfor %}
+
+		    <div class="form-group">
+		      <button type="submit" class="btn btn-primary">
+		        <span class="glyphicon glyphicon-ok"></span>Entrar
+		      </button>
+		      <a href="{% url 'core:index' %}" class="btn btn-default">Cancelar</a>
+					<a href="{% url 'cadastro:cadastro' %}" class="btn btn-default">Registre-se como membro</a>
+		    </div>
+		  </form>
+		</div>
+
+{% endblock %}

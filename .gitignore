@@ -1,0 +1,9 @@
+
+*.pyc
+*~
+__pycache__
+projeto
+eventos.db
+/static
+
+/migrations

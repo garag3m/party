@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+  {% for foto in fotos %}
+    <div class="container">
+      <img src="{{ foto.imagem.url }}">
+    </div>
+  {% endfor %}
+{% endblock %}
