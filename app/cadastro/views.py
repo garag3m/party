@@ -19,14 +19,14 @@ def cadastro(request):
 	else:
 		form = Inscrevase()
 	context['form'] = form
-	template_name = 'cadastro.html'
+	template_name = 'cadastro/cadastro.html'
 	return render(request,template_name,context)
 
 class Cadastro(CreateView):
 
 	model = Inscrito
-	template_name = 'cadastro.html'
+	template_name = 'cadastro/cadastro.html'
 	form_class = Inscrevase
 
 class Dashboard(TemplateView):
-	template_name = 'dashboard.html'
+	template_name = 'cadastro/dashboard.html'

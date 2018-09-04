@@ -3,7 +3,7 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-from eventos.cadastro.models import Inscrito
+from app.cadastro.models import Inscrito
 # from .consultas import evento_finalizado, excluir_evento
 
 # Create your models here.

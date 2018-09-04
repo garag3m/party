@@ -9,7 +9,7 @@ from django.db.models import Q
 
 class IndexView(TemplateView):
 
-	template_name = 'index.html'
+	template_name = 'core/index.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(IndexView, self).get_context_data(**kwargs)
@@ -23,19 +23,19 @@ class BuscarEventoList(TemplateView):
 		eventos = Evento.objects.filter(Q(nome__contains=buscar) | Q(data__contains=buscar))
 		if eventos:
 			print("OK")
-			return render(request, 'detalhes_list.html', {'eventos': eventos})
+			return render(request, 'core/detalhes_list.html', {'eventos': eventos})
 		else:
 			print('erro')
-			return render(request, 'detalhes_list.html', {'msn': 'Erro! tente digitar algo!!'})
+			return render(request, 'core/detalhes_list.html', {'msn': 'Erro! tente digitar algo!!'})
 
 class BuscarEvento(DetailView):
 
 	model = Evento
-	template_name = 'detalhe.html'
+	template_name = 'core/detalhe.html'
 
 class VisualizaAlbum(TemplateView):
 
-	template_name = 'album.html'
+	template_name = 'core/album.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(VisualizaAlbum, self).get_context_data(**kwargs)
