@@ -25,7 +25,7 @@ SECRET_KEY = '2d!)!3^o4a(0^5c8lt*y)j*tdt93qjl73vi^o69_r5t+gcp-ut'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
