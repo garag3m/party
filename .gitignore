@@ -5,5 +5,8 @@ __pycache__
 projeto
 eventos.db
 
+/assets
+/static
+
 /media
 /migrations
