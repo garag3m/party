@@ -119,8 +119,14 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">ADMIN</li>
         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          <a href="{% url 'core:index' %}">
+            <i class="fa fa-dashboard"></i> <span>Home</span>
+          </a>
+          <a href="{% url 'cadastro:cadastro' %}">
+            <i class="fa fa-dashboard"></i> <span>Cadastro</span>
+          </a>
+          <a href="{% url 'cadastro:login' %}">
+            <i class="fa fa-user"></i> <span>Login</span>
           </a>
         </li>
         {% if request.user.is_staff %}

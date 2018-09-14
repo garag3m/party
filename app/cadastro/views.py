@@ -25,7 +25,7 @@ def cadastro(request):
 # class Cadastro(CreateView):
 
 # 	model = Inscrito
-# 	template_name = 'cadastro/cadastro.html'
+# 	template_name = 'cadastro.html'
 # 	form_class = Inscrevase
 
 class Dashboard(TemplateView):

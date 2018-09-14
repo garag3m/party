@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app.core',
     'app.cadastro',
+    'app.core',
 
     'widget_tweaks',
 ]
@@ -130,3 +130,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'eventos','media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
+
+
+# Login e logout url's
+
+LOGIN_URL = 'cadastro:login'
+LOGIN_REDIRECT_URL = 'cadastro:dashboard'
+LOGOUT_URL = 'cadastro:logout'
