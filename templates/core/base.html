@@ -77,6 +77,7 @@
             </ul>
           </li>
           <!-- User Account: style can be found in dropdown.less -->
+          {% if user.is_authenticated %}
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="user-image" alt="User Image">
@@ -103,7 +104,9 @@
                 </div>
               </li>
             </ul>
+            {% else %}
           </li>
+          {% endif %}
         </ul>
       </div>
     </nav>
@@ -125,9 +128,15 @@
           <a href="{% url 'cadastro:cadastro' %}">
             <i class="fa fa-dashboard"></i> <span>Cadastro</span>
           </a>
-          <a href="{% url 'cadastro:login' %}">
-            <i class="fa fa-user"></i> <span>Login</span>
-          </a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'cadastro:logout' %}">
+              <i class="fa fa-user"></i> <span>Logout</span>
+            </a>
+          {% else %}
+            <a href="{% url 'cadastro:login' %}">
+              <i class="fa fa-user"></i> <span>Login</span>
+            </a>
+          {% endif %}
         </li>
         {% if request.user.is_staff %}
         <li>

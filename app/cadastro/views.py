@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .form import Inscrevase
 from .models import Inscrito
+from app.core import models
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
@@ -30,3 +31,9 @@ def cadastro(request):
 
 class Dashboard(TemplateView):
 	template_name = 'cadastro/dashboard.html'
+
+
+class MyInsc(DetailView):
+
+	model = models.Evento
+	template_name = 'core/base.html'

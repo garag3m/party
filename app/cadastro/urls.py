@@ -1,5 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 from . import views
 
 app_name = 'cadastro'
@@ -12,5 +13,8 @@ urlpatterns = [
     path('logout/',auth_views.logout, {'next_page': 'core:index'}, name='logout'),
 
     # Dashboard
-    path('dashboard/',views.Dashboard.as_view(),name='dashboard'),
+    path('dashboard/',login_required(views.Dashboard.as_view()), name='dashboard'),
+
+    # Minhas Inscrições
+    path('dashboard/insc/<pk>/', login_required(views.MyInsc.as_view()), name='inscricoes'),
 ]

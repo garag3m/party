@@ -1,5 +1,14 @@
 {% extends "core/base.html" %}
 
 {% block content %}
+	<div class="container">
+	  <form class="form-inline search-bar" action="{% url 'core:eventos-lista' %}" method="post">{% csrf_token %}
+	    <input class="form-control mr-sm-2" name="buscar_event" type="search" placeholder="Pesquisar o nome do evento" aria-label="Search">
+	    <button class="btn btn-success my-2 my-sm-0" type="submit">Pesquisar</button>
+	  </form>
+  	</div>
 
+	<h1>kdok</h1>
+
+	
 {% endblock %}
