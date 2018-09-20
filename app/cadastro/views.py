@@ -33,7 +33,11 @@ class Dashboard(TemplateView):
 	template_name = 'cadastro/dashboard.html'
 
 
-class MyInsc(DetailView):
+class MyInsc(TemplateView):
 
-	model = models.Evento
-	template_name = 'core/base.html'
+	template_name = 'cadastro/inscricao.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(MyInsc, self).get_context_data(**kwargs)
+		context['inscricao'] = Inscrito.objects.filter(usuario_id=self.request.user.id)
+		return context

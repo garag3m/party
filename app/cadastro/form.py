@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Inscrevase(forms.Form):
 
-	nome = forms.CharField(label='Usuario',widget=forms.TextInput(
+	nome = forms.CharField(label='Nome',widget=forms.TextInput(
 		attrs={'class':'form-control','placeholder':'Nome completo do aluno'}))
 
 	email = forms.EmailField(label='E-mail',widget=forms.EmailInput(

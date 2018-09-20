@@ -16,5 +16,5 @@ urlpatterns = [
     path('dashboard/',login_required(views.Dashboard.as_view()), name='dashboard'),
 
     # Minhas Inscrições
-    path('dashboard/insc/<pk>/', login_required(views.MyInsc.as_view()), name='inscricoes'),
+    path('dashboard/insc/', login_required(views.MyInsc.as_view()), name='inscricoes'),
 ]

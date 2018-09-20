@@ -1,5 +1,7 @@
 {% extends "core/base.html" %}
 
 {% block content %}
-	
+	{% for insc in inscricao %}
+		{{ insc.nome }}
+	{% endfor %}
 {% endblock %}

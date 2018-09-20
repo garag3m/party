@@ -1,9 +1,8 @@
 import uuid
 import datetime
 from django.core.exceptions import ValidationError
-from django.db import models
 from django.utils import timezone
-from app.cadastro.models import Inscrito
+from django.db import models
 # from .consultas import evento_finalizado, excluir_evento
 
 # Create your models here.
