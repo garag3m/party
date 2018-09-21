@@ -18,8 +18,11 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
+from app.cadastro import views
+
 urlpatterns = [
     path('',include('app.core.urls')),
 	path('cadastro/',include('app.cadastro.urls')),
+    path('pdf/', views.GeneratePDF.as_view()),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.db.models import Q
+from app.cadastro import models
 
 # Create your views here.
 

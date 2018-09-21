@@ -8,6 +8,13 @@
 	<h4>{{ object.data }}</h4>
 	<h4>{{ object.data_fim }}</h4>
 
+	{% if user.is_authenticated %}
+		<form class="form-group" method="post">
+			{% csrf_token %}
+			<input type="hidden" name="envia" value="{{ object.id }}">
+			<input type="submit" name="{{ object.id }}" value="Inscreva-se">
+		</form>
+	{% endif %}
 	<div class="album">
 		<h3>Album de Fotos</h3>
 		<a href="{% url 'core:eventos-album' object.slug %}">

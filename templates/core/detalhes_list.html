@@ -6,7 +6,7 @@
 
 	<h3>Eventos disponiveis</h3>
 	{% for event in eventos %}
-		<li><a href="{% url 'core:eventos-detalhes' event.slug %}">{{ event.nome }}</a></li>
+		<li><a href="{% url 'core:eventos-detalhes' event.pk %}">{{ event.nome }}</a></li>
 	{% empty %}
     	<li>Não existe nenhum evento com esse nome ou data.</li>
 	{% endfor %}
