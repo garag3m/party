@@ -6,6 +6,10 @@ from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
+from django.http import HttpResponse
+from django.views.generic import View
+
+from .utils import render_to_pdf
 # Create your views here.
 
 def cadastro(request):
@@ -41,3 +45,25 @@ class MyInsc(TemplateView):
 		context = super(MyInsc, self).get_context_data(**kwargs)
 		context['inscricao'] = Inscrito.objects.filter(usuario_id=self.request.user.id)
 		return context
+
+class GeneratePDF(View):
+    def get(self, request, *args, **kwargs):
+        template = get_template('invoice.html')
+        context = {
+            "invoice_id": 123,
+            "customer_name": "John Cooper",
+            "amount": 1399.99,
+            "today": "Today",
+        }
+        html = template.render(context)
+        pdf = render_to_pdf('invoice.html', context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            filename = "Invoice_%s.pdf" %("12341231")
+            content = "inline; filename='%s'" %(filename)
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename='%s'" %(filename)
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse("Not found")
