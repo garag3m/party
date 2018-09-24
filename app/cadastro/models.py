@@ -34,9 +34,26 @@ class Responsavel(models.Model):
 	evento = models.OneToOneField(Evento,on_delete=models.CASCADE)
 
 	def __str__(self):
-		return "%s - %s" %(self.usuario, self.evento)
+		return "%s - %s" %(self.usuario.email, self.evento)
 
 	class Meta:
 		verbose_name = "Responsavel"
 		verbose_name_plural = "Responsaveis"
 		db_table = 'responsavel'
+
+class EmitirCertificado(models.Model):
+
+	AUTORIZAR = (
+		(0,"Autorizo"),
+		(1,"Não autorizo")
+	)
+	inscrito = models.OneToOneField(Inscrito, on_delete=models.CASCADE)
+
+	qt_falta = models.CharField("Quantidade de faltas",max_length=3)
+	emitir_cert = models.IntegerField(verbose_name="Emissão do certificado",
+		help_text='Deseja autorizar a emissão do certificado para o respectivo usuário',
+		choices = AUTORIZAR
+	)
+
+	def __str__(self):
+		return str(self.inscrito)

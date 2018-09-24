@@ -1,6 +1,6 @@
 from django.contrib import admin
-from . import models
+from .models import Responsavel, EmitirCertificado
 
 # Register your models here.
 
-admin.site.register(models.Responsavel)
+admin.site.register([Responsavel, EmitirCertificado])

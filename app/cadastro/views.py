@@ -34,8 +34,13 @@ def cadastro(request):
 # 	form_class = Inscrevase
 
 class Dashboard(TemplateView):
-	template_name = 'cadastro/dashboard.html'
 
+    template_name = 'cadastro/dashboard.html'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(Dashboard, self).get_context_data(**kwargs)
+    #     context['certificado'] = Inscrito.objects.all()
+    #     return context
 
 class MyInsc(TemplateView):
 
@@ -48,13 +53,14 @@ class MyInsc(TemplateView):
 
 class GeneratePDF(View):
     def get(self, request, *args, **kwargs):
+        nome = Inscrito.objects.filter(usuario_id=self.request.user)
         template = get_template('pdf/certificado.html')
-        context = {
-            "invoice_id": 123,
-            "customer_name": "John Cooper",
-            "amount": 1399.99,
-            "today": "Today",
-        }
+        for n in nome:
+            context = {
+                "nome": n.nome,
+                "curso": n.idade,
+                "carga_h": n.evento,
+            }
         html = template.render(context)
         pdf = render_to_pdf('pdf/certificado.html', context)
         if pdf:
@@ -66,4 +72,4 @@ class GeneratePDF(View):
                 content = "attachment; filename='%s'" %(filename)
             response['Content-Disposition'] = content
             return response
-        return HttpResponse("Not found")
+        return HttpResponse("Não existe")

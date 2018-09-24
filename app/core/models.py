@@ -46,6 +46,7 @@ class Evento(models.Model):
 	slug = models.SlugField(max_length=100)
 	edicao = models.PositiveIntegerField(verbose_name='Edição',default=1)
 	tema = models.CharField("Tema do evento",max_length=150)
+	carga_h = models.CharField("Carga horaria prevista", max_length=5)
 	data = models.DateField("Inicio do evento",default=datetime.date.today)
 	data_fim = models.DateField("Final do evento",default=datetime.date.today)
 
