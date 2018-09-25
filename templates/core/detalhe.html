@@ -9,10 +9,10 @@
 	<h4>{{ object.data_fim }}</h4>
 
 	{% if user.is_authenticated %}
-		<form class="form-group" method="post">
+		<form class="form-group" action="{% url 'core:eventos-lista' %}" method="post">
 			{% csrf_token %}
 			<input type="hidden" name="envia" value="{{ object.id }}">
-			<input type="submit" name="{{ object.id }}" value="Inscreva-se">
+			<input type="submit" value="Inscreva-se">
 		</form>
 	{% endif %}
 	<div class="album">

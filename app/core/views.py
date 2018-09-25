@@ -20,7 +20,7 @@ class IndexView(TemplateView):
 class BuscarEventoList(TemplateView):
 
 	def post(self, request, *args, **kwargs):
-		buscar = request.POST['buscar_event']
+		buscar = request.POST.get('buscar_event','')
 		eventos = Evento.objects.filter(Q(nome__contains=buscar) | Q(data__contains=buscar))
 		if eventos:
 			print("OK")

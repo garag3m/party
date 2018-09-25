@@ -24,6 +24,6 @@ from app.cadastro import views
 urlpatterns = [
     path('',include('app.core.urls')),
 	path('cadastro/',include('app.cadastro.urls')),
-    path('pdf/', login_required(views.GeneratePDF.as_view())),
+    path('pdf/', login_required(views.GeneratePDF.as_view()), name='pdf'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

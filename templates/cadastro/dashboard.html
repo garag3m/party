@@ -20,7 +20,9 @@
 	      </div>
 	      <div class="modal-body">
 	        {% for cert in certificado %}
-	        	{{ cert.nome }}
+					<ul>
+						<li><a href="{% url 'pdf' %}" target="_blank">{{ cert.evento.nome }}</a></li>
+					</ul>
 	        {% endfor %}
 	      </div>
 	      <div class="modal-footer">
