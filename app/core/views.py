@@ -1,10 +1,13 @@
 from django.shortcuts import render
-from .models import Noticia,Evento, Galeria, Foto
+from .models import Noticia, Evento, Galeria, Foto
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.db.models import Q
 from app.cadastro import models
+from django.views.generic.edit import CreateView
+
+from . import form
 
 # Create your views here.
 
@@ -43,3 +46,9 @@ class VisualizaAlbum(TemplateView):
 
 		context['fotos'] = Foto.objects.filter()
 		return context
+
+class CadastraEvento(CreateView):
+
+	model = Evento
+	template_name = 'cadastro.html'
+	form_class = form.RegistrarEvento

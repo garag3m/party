@@ -29,7 +29,7 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body class="hold-transition skin-green-light sidebar-mini">
 <!-- Site wrapper -->
@@ -132,12 +132,15 @@
             <a href="{% url 'cadastro:logout' %}">
               <i class="fa fa-user"></i> <span>Logout</span>
             </a>
+            {% if not request.user.is_superuser %}
             <a href="{% url 'cadastro:inscricoes' %}">
               <i class="fa fa-user"></i> <span>Minhas inscrições</span>
             </a>
+
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
               Meus certificados
             </button>
+            {% endif %}
           {% else %}
             <a href="{% url 'cadastro:login' %}">
               <i class="fa fa-user"></i> <span>Login</span>
