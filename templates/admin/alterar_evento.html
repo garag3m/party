@@ -1,0 +1,35 @@
+
+{% extends "core/base.html" %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="register-box">
+  <div class="register-logo">
+    <a href="../../index2.html"><b>Sistema de Eventos</b></a>
+  </div>
+  <div class="register-box-body">
+    <p class="login-box-msg">Altere aqui seu evento</p>
+    <form action="../../index.html" method="post">
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Altere o nome">
+      </div>
+      <div class="form-group has-feedback">
+        <label for="data">Altere a data:</label>
+        <input type="date" name="data" class="form-control">
+      </div>
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Altere a descrição">
+      </div>
+      <div class="form-group has-feedback">
+        <input type="integer" class="form-control" placeholder="Altere o tempo de duração">
+      </div>
+      <div class="form-group has-feedback">
+        <label for="prazo">Altere o Prazo de Inscrição:</label>
+        <input type="date" name="prazo" class="form-control">
+      <div class="col-xs-4">
+        <button type="submit" class="btn btn-primary btn-block btn-flat">Alterar</button>
+      </div>
+    </form>
+</div>

@@ -1,10 +1,15 @@
+
 from django.shortcuts import render, redirect
-from .form import Inscrevase
+from .form import Inscrevase, RegistrarEvento
+
 from .models import Inscrito
 from app.core import models
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
+
+from django.urls import reverse_lazy
 
 from django.http import HttpResponse
 from django.views.generic import View
@@ -35,8 +40,9 @@ def cadastro(request):
 # 	template_name = 'cadastro.html'
 # 	form_class = Inscrevase
 
-class Dashboard(TemplateView):
+class Dashboard(ListView):
 
+    model = models.Evento
     template_name = 'cadastro/dashboard.html'
 
     def get_context_data(self, **kwargs):
@@ -85,3 +91,22 @@ class GeneratePDF(View):
             response['Content-Disposition'] = content
             return response
         return HttpResponse("Não existe")
+
+class CadastraEvento(CreateView):
+
+    model = models.Evento
+    template_name = 'admin/cadastro_evento.html'
+    form_class = RegistrarEvento
+
+
+class AlterarEvento(UpdateView):
+
+    model = models.Evento
+    template_name = 'admin/alterar_evento.html'
+    success_url = reverse_lazy('cadastro:dashboard')
+    fields = ['nome', 'finalizado', 'descricao', 'edicao', 'tema', 'carga_h', 'data', 'data_fim']
+
+class ExcluirEvento(DeleteView):
+
+    model = models.Evento
+    success_url = reverse_lazy('dashboard')

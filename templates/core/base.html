@@ -125,9 +125,21 @@
           <a href="{% url 'core:index' %}">
             <i class="fa fa-dashboard"></i> <span>Home</span>
           </a>
+          {% if not request.user.is_superuser %}
           <a href="{% url 'cadastro:cadastro' %}">
             <i class="fa fa-dashboard"></i> <span>Cadastro</span>
           </a>
+        {% else %}
+          <a href="{% url 'cadastro:cadastro-evento' %}">
+            <i class="fa fa-dashboard"></i> <span>Cadastrar evento</span>
+          </a>
+          <a href="{% url 'cadastro:alterar-evento' %}">
+            <i class="fa fa-dashboard"></i> <span>Alterar um evento</span>
+          </a>
+          <a href="{% url 'cadastro:excluir-evento' %}">
+            <i class="fa fa-dashboard"></i> <span>Excluir um evento</span>
+          </a>
+        {% endif %}
           {% if user.is_authenticated %}
             <a href="{% url 'cadastro:logout' %}">
               <i class="fa fa-user"></i> <span>Logout</span>
@@ -198,6 +210,15 @@
   $(document).ready(function () {
     $('.sidebar-menu').tree()
   })
+</script>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' /* optional */
+    });
+  });
 </script>
 </body>
 </html>

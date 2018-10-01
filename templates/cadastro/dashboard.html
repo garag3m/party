@@ -1,12 +1,17 @@
 {% extends "core/base.html" %}
 
 {% block content %}
+
+	{% if request.user.is_superuser %}
+	
+	{% else %}
 	<div class="container">
 	  <form class="form-inline search-bar" action="{% url 'core:eventos-lista' %}" method="post">{% csrf_token %}
 	    <input class="form-control mr-sm-2" name="buscar_event" type="search" placeholder="Pesquisar o nome do evento" aria-label="Search">
 	    <button class="btn btn-success my-2 my-sm-0" type="submit">Pesquisar</button>
 	  </form>
-  </div>
+  	</div>
+  	{% endif %}
 
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -31,4 +36,12 @@
 	    </div>
 	  </div>
 	</div>
+
+	<ul>
+		{% for object in object_list %}
+		<li>
+			<a href="{% url 'cadastro:alterar-evento' object.pk %}">editar</a>
+		</li>
+		{% endfor %}
+	</ul>
 {% endblock %}
