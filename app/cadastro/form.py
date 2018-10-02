@@ -83,4 +83,4 @@ class RegistrarEvento(forms.ModelForm):
 
     class Meta:
     	model = models.Evento
-    	fields = ['nome', 'finalizado','descricao','edicao','tema','carga_h','data','data_fim']
+    	fields = ['nome', 'finalizado','descricao','edicao_atual','tema','carga_h','data','data_fim']

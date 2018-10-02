@@ -40,14 +40,14 @@ def cadastro(request):
 # 	template_name = 'cadastro.html'
 # 	form_class = Inscrevase
 
-class Dashboard(ListView):
+class Dashboard(TemplateView):
 
-    model = models.Evento
     template_name = 'cadastro/dashboard.html'
 
     def get_context_data(self, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)
         context['certificado'] = Inscrito.objects.filter(usuario_id=self.request.user.id)
+        context['lista'] = models.Evento.objects.all()
         return context
 
 class MyInsc(TemplateView):
@@ -104,9 +104,13 @@ class AlterarEvento(UpdateView):
     model = models.Evento
     template_name = 'admin/alterar_evento.html'
     success_url = reverse_lazy('cadastro:dashboard')
-    fields = ['nome', 'finalizado', 'descricao', 'edicao', 'tema', 'carga_h', 'data', 'data_fim']
+    fields = ['nome', 'finalizado', 'descricao', 'edicao_atual', 'tema', 'carga_h', 'data', 'data_fim']
 
 class ExcluirEvento(DeleteView):
 
     model = models.Evento
     success_url = reverse_lazy('dashboard')
+
+class RetornoEvento(TemplateView):
+
+    template_name = 'admin/alterar_retorno.html'

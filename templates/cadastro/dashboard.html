@@ -37,11 +37,21 @@
 	  </div>
 	</div>
 
-	<ul>
-		{% for object in object_list %}
-		<li>
-			<a href="{% url 'cadastro:alterar-evento' object.pk %}">editar</a>
-		</li>
-		{% endfor %}
-	</ul>
+	{% if request.user.is_superuser %}
+	<div class="panel panel-success">
+			<div class="panel-heading"><h4>Lista com todos os eventos cadastrados no sistema.</h4></div>
+			<div class="panel-body">
+					<div class="list-group">
+							{% for l in lista %}
+							<a href="#" class="list-group-item"><h4>{{ l.nome }}</h4></a>
+							<a href="{% url 'cadastro:excluir-evento' l.pk %}">Excluir</a>
+							<a href="{% url 'cadastro:alterar-evento' l.pk %}">Editar</a>
+							{% endfor %}
+						</div>
+			</div>
+		</div>
+
+	{% else %}
+
+	{% endif %}
 {% endblock %}

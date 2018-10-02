@@ -25,5 +25,9 @@ urlpatterns = [
     path('dashboard/alterar-evento/<pk>/',login_required(views.AlterarEvento.as_view()), name='alterar-evento'),
 
     # Excluir Evento
-    path('dashboard/excluir-evento/',login_required(views.ExcluirEvento.as_view()), name='excluir-evento'),
+    path('dashboard/excluir-evento/<pk>/',login_required(views.ExcluirEvento.as_view()), name='excluir-evento'),
+
+    # Retorno do alterar evento
+    path('dashboard/retorno/',login_required(views.RetornoEvento.as_view()), name='alterar-retorno'),
+
 ]
