@@ -37,15 +37,16 @@ class Evento(models.Model):
 	)
 
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-	nome = models.CharField("Nome do evento",max_length=150)
+	nome = models.CharField(max_length=150)
 	finalizado = models.IntegerField(verbose_name="Status do evento",
 		help_text='Marcar o campo referente ao estado atual do evento',
 		choices = STATUS
 	)
 	descricao = models.TextField("Descrição")
 	slug = models.SlugField(max_length=100)
-	edicao = models.PositiveIntegerField(verbose_name='Edição',default=1)
-	tema = models.CharField("Tema do evento",max_length=150)
+	edicao_anterior = models.PositiveIntegerField(default=1)
+	edicao_atual = models.PositiveIntegerField(verbose_name='Edição',default=1)
+	tema = models.CharField(max_length=150)
 	carga_h = models.CharField("Carga horaria prevista", max_length=5)
 	data = models.DateField("Inicio do evento",default=datetime.date.today)
 	data_fim = models.DateField("Final do evento",default=datetime.date.today)

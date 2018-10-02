@@ -46,9 +46,3 @@ class VisualizaAlbum(TemplateView):
 
 		context['fotos'] = Foto.objects.filter()
 		return context
-
-class CadastraEvento(CreateView):
-
-	model = Evento
-	template_name = 'cadastro.html'
-	form_class = form.RegistrarEvento

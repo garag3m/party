@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from .models import Inscrito
+
+from app.core import models
 from django.contrib.auth.models import User
 
 class Inscrevase(forms.Form):
@@ -76,3 +78,9 @@ class Inscrevase(forms.Form):
 	    )
 		novo_inscrito.save()
 		return novo_inscrito
+
+class RegistrarEvento(forms.ModelForm):
+
+    class Meta:
+    	model = models.Evento
+    	fields = ['nome', 'finalizado','descricao','edicao_atual','tema','carga_h','data','data_fim']

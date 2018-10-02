@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="register-box">
+    <div class="register-logo">
+        <a href="../../index2.html"><b>Sistema de Eventos</b></a>
+    </div>
+    <div class="register-box-body">
+        <p class="login-box-msg">Evento alterado com sucesso!</p>
+    </div>
+    <div align = "center">
+      <a href="{% url 'cadastro:dashboard' %}" class="text-center">Voltar</a>
+    </div>
+</div>
+
+{% endblock %}
