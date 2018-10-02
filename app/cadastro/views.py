@@ -6,7 +6,7 @@ from .models import Inscrito
 from app.core import models
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.list import ListView
 
 from django.urls import reverse_lazy
@@ -92,12 +92,12 @@ class GeneratePDF(View):
             return response
         return HttpResponse("Não existe")
 
-class CadastraEvento(CreateView):
+class CadastraEvento(FormView):
 
-    model = models.Evento
-    template_name = 'admin/cadastro_evento.html'
-    form_class = RegistrarEvento
-
+	model = models.Evento
+	template_name = 'admin/cadastro_evento.html'
+	form_class = RegistrarEvento
+	success_url = '/'
 
 class AlterarEvento(UpdateView):
 
@@ -108,8 +108,17 @@ class AlterarEvento(UpdateView):
 
 class ExcluirEvento(DeleteView):
 
-    model = models.Evento
-    success_url = reverse_lazy('dashboard')
+	model = models.Evento
+	template_name = 'admin/excluir_retorno.html'
+	success_url = reverse_lazy('cadastro:dashboard')
+
+	def delete(self, request, *args, **kwargs):
+		self.object = self.get_object()
+		if self.object.user == request.user:
+			self.object.delete()
+			return HttpResponseRedirect(self.get_success_url())
+		else:
+			raise Http404 #or return HttpResponse('404_url')
 
 class RetornoEvento(TemplateView):
 

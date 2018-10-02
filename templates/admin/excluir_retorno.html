@@ -12,8 +12,11 @@
     <div class="register-box-body">
         <p class="login-box-msg">Evento excluído com sucesso!</p>
     </div>
+    <form class="" method="post">
+      {{ object }}
+    </form>
     <div align = "center">
-    <a href="" class="text-center">Voltar</a>
+    <a href="{% url 'cadastro:dashboard' %}" class="text-center">Voltar</a>
     </div>
 </div>
 

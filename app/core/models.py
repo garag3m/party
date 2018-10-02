@@ -5,6 +5,8 @@ from django.utils import timezone
 from django.db import models
 # from .consultas import evento_finalizado, excluir_evento
 
+from django.urls import reverse
+
 # Create your models here.
 
 class Noticia(models.Model):
@@ -44,7 +46,7 @@ class Evento(models.Model):
 	)
 	descricao = models.TextField("Descrição")
 	slug = models.SlugField(max_length=100)
-	edicao_anterior = models.PositiveIntegerField(default=1)
+	edicao_anterior = models.PositiveIntegerField(blank=True, null=True)
 	edicao_atual = models.PositiveIntegerField(verbose_name='Edição',default=1)
 	tema = models.CharField(max_length=150)
 	carga_h = models.CharField("Carga horaria prevista", max_length=5)
@@ -72,6 +74,9 @@ class Evento(models.Model):
 
 		# elif deletar_evento == True:
 		# 	raise ValidationError("ok")
+
+	def get_absolute_url(self):
+		return reverse('cadastro:dashboard')
 
 
 	class Meta:
