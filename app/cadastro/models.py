@@ -16,8 +16,8 @@ class Inscrito(models.Model):
 	cpf = models.PositiveIntegerField()
 	rg = models.PositiveIntegerField()
 	telefone = models.CharField(max_length=15)
-	usuario = models.OneToOneField(User,related_name='inscritos',on_delete=models.CASCADE)
-	evento = models.ForeignKey(Evento,on_delete=models.CASCADE, null=True, blank=True)
+	usuario = models.ForeignKey(User,related_name='inscritos',on_delete=models.CASCADE)
+	evento = models.ForeignKey(Evento,related_name='eventos',on_delete=models.CASCADE, null=True,blank=True)
 
 	def __str__(self):
 		return self.nome
@@ -50,6 +50,7 @@ class EmitirCertificado(models.Model):
 	inscrito = models.OneToOneField(Inscrito, on_delete=models.CASCADE)
 
 	qt_falta = models.CharField("Quantidade de faltas",max_length=3)
+	evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
 	emitir_cert = models.IntegerField(verbose_name="Emissão do certificado",
 		help_text='Deseja autorizar a emissão do certificado para o respectivo usuário',
 		choices = AUTORIZAR

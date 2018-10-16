@@ -7,6 +7,8 @@ from django.db.models import Q
 from app.cadastro import models
 from django.views.generic.edit import CreateView
 
+from django.http import HttpResponseRedirect
+
 from . import form
 
 # Create your views here.
@@ -46,3 +48,13 @@ class VisualizaAlbum(TemplateView):
 
 		context['fotos'] = Foto.objects.filter()
 		return context
+
+def inscrevase(request, id):
+
+	event = Evento.objects.get(id=id)
+
+	ins = models.Inscrito.objects.get(usuario=request.user.id)
+	ins.evento = event
+	ins.save()
+
+	return HttpResponseRedirect('/')

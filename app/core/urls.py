@@ -12,4 +12,7 @@ urlpatterns = [
     path('eventos/',views.BuscarEventoList.as_view(), name='eventos-lista'),
     path('eventos/<pk>/',views.BuscarEvento.as_view(), name='eventos-detalhes'),
     path('eventos/<pk>/album/',views.VisualizaAlbum.as_view(), name='eventos-album'),
+
+    # Inscreva-se
+    path('eventos/<id>/inscrevase/', views.inscrevase, name='inscrevase')
 ]

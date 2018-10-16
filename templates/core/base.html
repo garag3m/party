@@ -133,6 +133,9 @@
           <a href="{% url 'cadastro:cadastro-evento' %}">
             <i class="fa fa-dashboard"></i> <span>Cadastrar evento</span>
           </a>
+          <a href="{% url 'cadastro:emitir' %}">
+            <i class="fa fa-dashboard"></i> <span>Autorizar emissão dos certificados</span>
+          </a>
         {% endif %}
           {% if user.is_authenticated %}
             <a href="{% url 'cadastro:logout' %}">

@@ -30,4 +30,7 @@ urlpatterns = [
     # Retorno do alterar evento
     path('dashboard/retorno/',login_required(views.RetornoEvento.as_view()), name='alterar-retorno'),
 
+    # Emitir certificado
+    path('dashboard/emitir/',login_required(views.ListaUsuarios.as_view()), name='emitir'),
+
 ]

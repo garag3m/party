@@ -33,14 +33,14 @@ class Noticia(models.Model):
 class Evento(models.Model):
 
 	STATUS = (
-		(0,"Finalizado"),
-		(1,"Não Finalizado"),
-		(2,"Acontecendo")
+		("Finalizado","Finalizado"),
+		("Não Finalizado","Não Finalizado"),
+		("Acontecendo","Acontecendo")
 	)
 
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	nome = models.CharField(max_length=150)
-	finalizado = models.IntegerField(verbose_name="Status do evento",
+	finalizado = models.CharField(max_length=20,verbose_name="Status do evento",
 		help_text='Marcar o campo referente ao estado atual do evento',
 		choices = STATUS
 	)

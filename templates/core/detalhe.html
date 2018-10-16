@@ -12,12 +12,12 @@
 		<form class="form-group" action="{% url 'core:eventos-lista' %}" method="post">
 			{% csrf_token %}
 			<input type="hidden" name="envia" value="{{ object.id }}">
-			<input type="submit" value="Inscreva-se">
+			<a href="{% url 'core:inscrevase' object.id %}">Inscreva-se</a>
 		</form>
 	{% endif %}
 	<div class="album">
 		<h3>Album de Fotos</h3>
-		<a href="{% url 'core:eventos-album' object.slug %}">
+		<a href="{% url 'core:eventos-album' object.pk %}">
 			<img src="#" alt="imagem padrao">
 		</a>
 	</div>

@@ -2,11 +2,11 @@
 from django.shortcuts import render, redirect
 from .form import Inscrevase, RegistrarEvento
 
-from .models import Inscrito
+from .models import Inscrito, EmitirCertificado
 from app.core import models
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 from django.urls import reverse_lazy
@@ -48,6 +48,8 @@ class Dashboard(TemplateView):
         context = super(Dashboard, self).get_context_data(**kwargs)
         context['certificado'] = Inscrito.objects.filter(usuario_id=self.request.user.id)
         context['lista'] = models.Evento.objects.all()
+		context['autoriza'] = EmitirCertificado.objects.all()
+
         return context
 
 class MyInsc(TemplateView):
@@ -58,16 +60,6 @@ class MyInsc(TemplateView):
 		context = super(MyInsc, self).get_context_data(**kwargs)
 		context['inscricao'] = Inscrito.objects.filter(usuario_id=self.request.user.id)
 		return context
-
-	def post(self, request, *args, **kwargs):
-
-		u = self.request.POST.get("envia","")
-		print(u)
-
-		c = Inscrito.objects.filter(usuario_id=self.request.user.id)
-		c.evento=u
-		c.save()
-		return c
 
 class GeneratePDF(View):
     def get(self, request, *args, **kwargs):
@@ -92,12 +84,12 @@ class GeneratePDF(View):
             return response
         return HttpResponse("Não existe")
 
-class CadastraEvento(FormView):
+class CadastraEvento(CreateView):
 
 	model = models.Evento
 	template_name = 'admin/cadastro_evento.html'
 	form_class = RegistrarEvento
-	success_url = '/'
+	success_url = reverse_lazy('cadastro:cadastro-evento')
 
 class AlterarEvento(UpdateView):
 
@@ -123,3 +115,10 @@ class ExcluirEvento(DeleteView):
 class RetornoEvento(TemplateView):
 
     template_name = 'admin/alterar_retorno.html'
+
+class ListaUsuarios(CreateView):
+
+	model = EmitirCertificado
+	template_name = 'admin/usuario.html'
+	fields = ['qt_falta','evento','emitir_cert','inscrito']
+	success_url = reverse_lazy('cadastro:cadastro-evento')
