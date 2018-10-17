@@ -3,7 +3,9 @@ from django import forms
 from .models import Inscrito
 
 from app.core import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Inscrevase(forms.Form):
 
@@ -83,4 +85,4 @@ class RegistrarEvento(forms.ModelForm):
 
     class Meta:
     	model = models.Evento
-    	fields = ['nome', 'finalizado','descricao','edicao_atual','tema','carga_h','data','data_fim']
+    	fields = ['nome', 'finalizado','descricao','edicao','tema','carga_h','data','data_fim']

@@ -2,4 +2,7 @@ from django.apps import AppConfig
 
 
 class CadastroConfig(AppConfig):
-    name = 'cadastro'
+    name = 'app.cadastro'
+
+    def ready(self):
+        from . import signal

@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .form import Inscrevase, RegistrarEvento
 
 from .models import Inscrito, EmitirCertificado
@@ -42,15 +42,15 @@ def cadastro(request):
 
 class Dashboard(TemplateView):
 
-    template_name = 'cadastro/dashboard.html'
+	template_name = 'cadastro/dashboard.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(Dashboard, self).get_context_data(**kwargs)
-        context['certificado'] = Inscrito.objects.filter(usuario_id=self.request.user.id)
-        context['lista'] = models.Evento.objects.all()
-		context['autoriza'] = EmitirCertificado.objects.all()
+	def get_context_data(self, **kwargs):
+		context = super(Dashboard, self).get_context_data(**kwargs)
+		context['certificado'] = Inscrito.objects.filter(usuario_id=self.request.user.id)
+		context['lista'] = models.Evento.objects.all()
+		context['autoriza'] = EmitirCertificado.objects.filter(inscrito_id=self.request.user.id)
 
-        return context
+		return context
 
 class MyInsc(TemplateView):
 
@@ -96,21 +96,14 @@ class AlterarEvento(UpdateView):
     model = models.Evento
     template_name = 'admin/alterar_evento.html'
     success_url = reverse_lazy('cadastro:dashboard')
-    fields = ['nome', 'finalizado', 'descricao', 'edicao_atual', 'tema', 'carga_h', 'data', 'data_fim']
+    fields = ['nome', 'finalizado', 'descricao', 'edicao', 'tema', 'carga_h', 'data', 'data_fim']
 
-class ExcluirEvento(DeleteView):
-
-	model = models.Evento
-	template_name = 'admin/excluir_retorno.html'
-	success_url = reverse_lazy('cadastro:dashboard')
-
-	def delete(self, request, *args, **kwargs):
-		self.object = self.get_object()
-		if self.object.user == request.user:
-			self.object.delete()
-			return HttpResponseRedirect(self.get_success_url())
-		else:
-			raise Http404 #or return HttpResponse('404_url')
+def evento_delete(request, pk, template_name='admin/excluir_retorno.html'):
+    evento= get_object_or_404(models.Evento, pk=pk)
+    if request.method=='POST':
+        evento.delete()
+        return redirect('cadastro:dashboard')
+    return render(request, template_name, {'object':evento})
 
 class RetornoEvento(TemplateView):
 

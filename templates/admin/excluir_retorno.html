@@ -10,11 +10,11 @@
         <a href="../../index2.html"><b>Sistema de Eventos</b></a>
     </div>
     <div class="register-box-body">
-        <p class="login-box-msg">Evento excluído com sucesso!</p>
+      <form class="" method="post">{% csrf_token %}
+        Deseja mesmo apagar {{ object }}?<input type="submit" class="btn btn-success" value="Excluir">
+      </form>
     </div>
-    <form class="" method="post">
-      {{ object }}
-    </form>
+
     <div align = "center">
     <a href="{% url 'cadastro:dashboard' %}" class="text-center">Voltar</a>
     </div>

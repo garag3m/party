@@ -24,15 +24,22 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        {% for cert in certificado %}
 
-					{% if autoriza.emitir_cert == 0 %}
-						ok
+					{% for aut in autoriza %}
+						{% if aut.emitir_cert == 0 %}
+							{% for cert in certificado %}
+							<ul>
+								<li><a href="{% url 'pdf' %}" target="_blank">{{ cert.evento.nome }}</a>-Participação confirmada</li>
+							</ul>
+							{% endfor %}
+						{% else %}
+							{% for cert in certificado %}
+							<ul>
+								<li><a href="#">{{ cert.evento.nome }}</a>-Participação não confirmada</li>
+							</ul>
+							{% endfor %}
+						{% endif %}
 					{% endfor %}
-					<ul>
-						<li><a href="{% url 'pdf' %}" target="_blank">{{ cert.evento.nome }}</a></li>
-					</ul>
-	        {% endfor %}
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -54,6 +61,7 @@
 						</div>
 			</div>
 		</div>
+
 	{% else %}
 	<table class="table">
 		<thead>

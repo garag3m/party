@@ -135,3 +135,6 @@ STATICFILES_DIRS = (
 LOGIN_URL = 'cadastro:login'
 LOGIN_REDIRECT_URL = 'cadastro:dashboard'
 LOGOUT_URL = 'cadastro:logout'
+
+
+AUTH_USER_MODEL = 'cadastro.MyUser'

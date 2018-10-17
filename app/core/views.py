@@ -24,6 +24,7 @@ class IndexView(TemplateView):
 
 class BuscarEventoList(TemplateView):
 
+	template_name = 'core/detalhes_list.html'
 	def post(self, request, *args, **kwargs):
 		buscar = request.POST.get('buscar_event','')
 		eventos = Evento.objects.filter(Q(nome__contains=buscar) | Q(data__contains=buscar))
@@ -46,8 +47,17 @@ class VisualizaAlbum(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(VisualizaAlbum, self).get_context_data(**kwargs)
 
-		context['fotos'] = Foto.objects.filter()
+		context['fotos'] = Foto.objects.filter(id=self.kwargs['pk'])
 		return context
+
+# class GaleriaDeFotos(CreateView):
+
+# class PublicarFotos(CreateView):
+#
+# 	model = models.Evento
+# 	template_name = 'admin/cadastro_evento.html'
+# 	form_class = RegistrarEvento
+# 	success_url = reverse_lazy('cadastro:cadastro-evento')
 
 def inscrevase(request, id):
 
@@ -57,4 +67,4 @@ def inscrevase(request, id):
 	ins.evento = event
 	ins.save()
 
-	return HttpResponseRedirect('/')
+	return HttpResponseRedirect('/cadastro/dashboard/')

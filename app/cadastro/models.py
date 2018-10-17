@@ -4,7 +4,13 @@ from django.contrib.auth.models import User
 from app.core.models import Evento
 from django.db import models
 
+from django.conf import settings
+
+from django.contrib.auth.models import AbstractUser
+
 # Create your models here.
+class MyUser(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
 class Inscrito(models.Model):
 
@@ -16,7 +22,7 @@ class Inscrito(models.Model):
 	cpf = models.PositiveIntegerField()
 	rg = models.PositiveIntegerField()
 	telefone = models.CharField(max_length=15)
-	usuario = models.ForeignKey(User,related_name='inscritos',on_delete=models.CASCADE)
+	usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='inscritos',on_delete=models.CASCADE)
 	evento = models.ForeignKey(Evento,related_name='eventos',on_delete=models.CASCADE, null=True,blank=True)
 
 	def __str__(self):
@@ -30,7 +36,7 @@ class Inscrito(models.Model):
 class Responsavel(models.Model):
 
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-	usuario = models.OneToOneField(User,related_name='responsaveis',on_delete=models.CASCADE)
+	usuario = models.OneToOneField(settings.AUTH_USER_MODEL,related_name='responsaveis',on_delete=models.CASCADE)
 	evento = models.OneToOneField(Evento,on_delete=models.CASCADE)
 
 	def __str__(self):
@@ -47,12 +53,11 @@ class EmitirCertificado(models.Model):
 		(0,"Autorizo"),
 		(1,"Não autorizo")
 	)
-	inscrito = models.OneToOneField(Inscrito, on_delete=models.CASCADE)
+	inscrito = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 	qt_falta = models.CharField("Quantidade de faltas",max_length=3)
 	evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
 	emitir_cert = models.IntegerField(verbose_name="Emissão do certificado",
-		help_text='Deseja autorizar a emissão do certificado para o respectivo usuário',
 		choices = AUTORIZAR
 	)
 
