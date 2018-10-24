@@ -2,6 +2,8 @@
 
 {% block content %}
 	{% for insc in inscricao %}
-		{{ insc.evento }}
+		<h4>{{ insc.evento.nome }}</h4>
+	{% empty %}
+    	<li>{{ request.user.first_name }} você ainda não possui nenhuma inscrição!</li>
 	{% endfor %}
 {% endblock %}

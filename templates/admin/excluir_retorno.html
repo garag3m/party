@@ -7,8 +7,9 @@
 
 <div class="register-box">
     <div class="register-logo">
-        <a href="../../index2.html"><b>Sistema de Eventos</b></a>
+        <a href="#"><b>Sistema de Eventos</b></a>
     </div>
+    {% if request.user.is_superuser %}
     <div class="register-box-body">
       <form class="" method="post">{% csrf_token %}
         Deseja mesmo apagar {{ object }}?<input type="submit" class="btn btn-success" value="Excluir">
@@ -18,6 +19,11 @@
     <div align = "center">
     <a href="{% url 'cadastro:dashboard' %}" class="text-center">Voltar</a>
     </div>
+    {% else %}
+
+      <h3>{{ request.user.first_name }} você não esta autorizado a acessar essa página!</h3>
+
+      {% endif %}
 </div>
 
 {% endblock %}

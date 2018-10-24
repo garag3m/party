@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .form import Inscrevase, RegistrarEvento
 
-from .models import Inscrito, EmitirCertificado
+from .models import EmitirCertificado, Inscrito
 from app.core import models
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
@@ -46,8 +46,9 @@ class Dashboard(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(Dashboard, self).get_context_data(**kwargs)
-		context['certificado'] = Inscrito.objects.filter(usuario_id=self.request.user.id)
+
 		context['lista'] = models.Evento.objects.all()
+
 		context['autoriza'] = EmitirCertificado.objects.filter(inscrito_id=self.request.user.id)
 
 		return context
@@ -58,7 +59,7 @@ class MyInsc(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(MyInsc, self).get_context_data(**kwargs)
-		context['inscricao'] = Inscrito.objects.filter(usuario_id=self.request.user.id)
+		context['inscricao'] = EmitirCertificado.objects.filter(inscrito_id=self.request.user.id)
 		return context
 
 class GeneratePDF(View):

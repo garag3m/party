@@ -4,14 +4,11 @@
 
 {% block content %}
 
-  {% for l in lista_user %}
-    {{ l.nome }}
-  {% endfor %}
-
 <div class="register-box">
   <div class="register-logo">
     <a href="#"><b>Sistema de Eventos</b></a>
   </div>
+  {% if request.user.is_superuser %}
   <div class="register-box-body">
     <p class="login-box-msg">Autorizar a emissão dos certificados</p>
     <form class="form-horizontal" method="POST">
@@ -41,6 +38,11 @@
           </div>
           <!-- /.box-footer -->
     </form>
-</div>
+  </div>
+  {% else %}
+
+  <h3>{{ request.user.first_name }} você não esta autorizado a acessar essa página!</h3>
+
+  {% endif %}
 
 {% endblock %}

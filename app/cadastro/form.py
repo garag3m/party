@@ -62,10 +62,16 @@ class Inscrevase(forms.Form):
 		rg = self.cleaned_data.get('rg')
 		telefone = self.cleaned_data.get('telefone')
 
+		tamanho = len(nome.split(" "))-1
+		primeiro = nome.split(" ")[0]
+		ultimo = nome.split(" ")[tamanho]
+
 		user = User.objects.create_user(
 			password=senha,
 			username=cpf,
-			email=email
+			email=email,
+			first_name=primeiro,
+			last_name=ultimo
 		)
 		user.save()
 		novo_inscrito = Inscrito(

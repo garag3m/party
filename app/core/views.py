@@ -64,6 +64,7 @@ def inscrevase(request, id):
 	event = Evento.objects.get(id=id)
 
 	ins = models.Inscrito.objects.get(usuario=request.user.id)
+	
 	ins.evento = event
 	ins.save()
 

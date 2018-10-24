@@ -7,8 +7,9 @@
 
 <div class="register-box">
   <div class="register-logo">
-    <a href="../../index2.html"><b>Sistema de Eventos</b></a>
+    <a href="#"><b>Sistema de Eventos</b></a>
   </div>
+  {% if request.user.is_superuser %}
   <div class="register-box-body">
     <p class="login-box-msg">Altere aqui seu evento</p>
     <form class="form-horizontal" method="POST">
@@ -37,7 +38,11 @@
         <a href="{% url 'cadastro:dashboard' %}" class="btn btn-default">Voltar</a>
       </div>
       <!-- /.box-footer -->
-</form>
-</div>
+    </form>
+  </div>
+  {% else %}
 
+  <h3>{{ request.user.first_name }} você não esta autorizado a acessar essa página!</h3>
+
+  {% endif %}
 {% endblock %}

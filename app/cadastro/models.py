@@ -23,10 +23,10 @@ class Inscrito(models.Model):
 	rg = models.PositiveIntegerField()
 	telefone = models.CharField(max_length=15)
 	usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='inscritos',on_delete=models.CASCADE)
-	evento = models.ForeignKey(Evento,related_name='eventos',on_delete=models.CASCADE, null=True,blank=True)
+	evento = models.ForeignKey(Evento,on_delete=models.CASCADE, null=True, blank=True)
 
 	def __str__(self):
-		return self.nome
+		return "%s - CPF nº %s" %(self.nome, self.cpf)
 
 	class Meta:
 		verbose_name = "Inscrito"
