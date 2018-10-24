@@ -6,9 +6,8 @@ admin.site.site_header = "Sistema de Eventos"
 
 class EventosAdmin(admin.ModelAdmin):
 
-	list_display = ['nome','finalizado','slug','tema','data','data_fim']
-	search_fields = ['nome','slug']
-	prepopulated_fields = {'slug': ('nome',)}
+	list_display = ['nome','finalizado','tema','data','data_fim']
+	search_fields = ['nome',]
 
 
 class FotosAdmin(admin.ModelAdmin):
