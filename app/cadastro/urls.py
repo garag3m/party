@@ -33,4 +33,7 @@ urlpatterns = [
     # Emitir certificado
     path('dashboard/emitir/',login_required(views.ListaUsuarios.as_view()), name='emitir'),
 
+    # Erro
+    path('dashboard/excluir-evento/pk/erro/',views.erro, name='erro'),
+
 ]

@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from .form import Inscrevase, RegistrarEvento
 
 from .models import EmitirCertificado, Inscrito
@@ -116,3 +116,7 @@ class ListaUsuarios(CreateView):
 	template_name = 'admin/usuario.html'
 	fields = ['qt_falta','evento','emitir_cert','inscrito']
 	success_url = reverse_lazy('cadastro:cadastro-evento')
+
+def erro(request):
+	
+	return render_to_response("cadastro/erro.html")

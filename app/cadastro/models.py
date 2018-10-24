@@ -50,16 +50,34 @@ class Responsavel(models.Model):
 class EmitirCertificado(models.Model):
 
 	AUTORIZAR = (
-		(0,"Autorizo"),
-		(1,"Não autorizo")
-	)
-	inscrito = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+        (0,"Autorizo"),
+        (1,"Não autorizo")
+    )
+    
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    inscrito = models.ForeignKey(Evento, on_delete=models.CASCADE)
+    qt_falta = models.CharField("Quantidade de faltas",max_length=3)
 
-	qt_falta = models.CharField("Quantidade de faltas",max_length=3)
-	evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
-	emitir_cert = models.IntegerField(verbose_name="Emissão do certificado",
-		choices = AUTORIZAR
-	)
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
+    emitir_cert = models.IntegerField(verbose_name="Emissão do certificado",
+        choices = AUTORIZAR
+    )
 
 	def __str__(self):
 		return str(self.inscrito)
+
+class Atividade(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    tipo = models.CharField("Tipo", max_length=255)
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
+    ministrante = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    titulo = models.CharField("Titulo", max_length=255)
+    qt_inscritos = models.PositiveIntegerField(verbose_name="Quantidade de inscritos")
+    descricao = models.TextField("Descrição")
+    data = models.DateField("Data",default=datetime.date.today)
+    local = models.CharField("Local", max_length=255)
+    carga_h = models.PositiveIntegerField(verbose_name="Duração")
+
+    def __str__(self):
+        return "%s - Evento: %s" %(str(self.ministrante.first, self.evento.nome))
