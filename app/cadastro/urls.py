@@ -34,11 +34,17 @@ urlpatterns = [
     path('dashboard/emitir/',login_required(views.AutorizaView.as_view()), name='emitir'),
 
     # Erro
-    path('dashboard/excluir-evento/pk/erro/',views.erro, name='erro'),
+    path('dashboard/excluir-evento/<pk>/erro/',views.erro, name='erro'),
 
     # Publicar fotos
     path('dashboard/publicar-fotos/',login_required(views.PublicarFotos.as_view()), name='publicar'),
 
     # Atividade
     path('dashboard/atividade/',login_required(views.AtividadeEvento.as_view()), name='atividade'),
+
+    # Noticias
+    path('dashboard/noticias/',login_required(views.NoticiasView.as_view()), name='noticias'),
+
+    # Meus certificados
+    path('dashboard/certificado/', login_required(views.CertificadoView.as_view()), name='certificado'),
 ]

@@ -7,6 +7,10 @@ from django.db import models
 
 from django.urls import reverse
 
+from imagekit.models import ImageSpecField, ProcessedImageField
+from imagekit.processors import ResizeToFill, SmartResize
+
+
 # Create your models here.
 
 class Noticia(models.Model):
@@ -29,6 +33,7 @@ class Noticia(models.Model):
 		verbose_name = "Noticia"
 		verbose_name_plural = "Noticias"
 		db_table = "noticia"
+		ordering = ('data_public',)
 
 class Evento(models.Model):
 
@@ -84,21 +89,25 @@ class Evento(models.Model):
 		ordering = ('nome',)
 
 class Foto(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    autor = models.CharField("Autor",max_length=100)
-    descricao = models.CharField("Descrição",max_length=255)
-    imagem = models.ImageField(upload_to='imagem',verbose_name="Imagem")
+	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	autor = models.CharField("Autor",max_length=100)
+	descricao = models.CharField("Descrição",max_length=255)
+	imagem = models.FileField(upload_to='imagem', verbose_name="Imagem")
 
-    galeria = models.ForeignKey("Galeria", on_delete=models.CASCADE, related_name='fotos')
+	image = ImageSpecField(
+		source='imagem', processors=[ResizeToFill(50, 50)], format='JPEG',
+		options={'quality':60}
+	)
+	galeria = models.ForeignKey("Galeria", on_delete=models.CASCADE, related_name='fotos')
 
-    def __str__(self):
-    	return self.autor
+	def __str__(self):
+		return self.autor
 
-    class Meta:
-    	verbose_name = "Foto"
-    	verbose_name_plural = "Fotos"
-    	db_table = "foto"
-    	ordering = ('autor',)
+	class Meta:
+		verbose_name = "Foto"
+		verbose_name_plural = "Fotos"
+		db_table = "foto"
+		ordering = ('autor',)
 
 class Galeria(models.Model):
 

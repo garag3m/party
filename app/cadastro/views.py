@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 
-from .form import Inscrevase, RegistrarEvento, PublicarFotos, AtividadeForm, AutorizarForm
+from .form import (
+	Inscrevase, RegistrarEvento, PublicarFotos, AtividadeForm, AutorizarForm, NoticiaForm
+)
 
 from .models import EmitirCertificado, Inscrito, Atividade
 from app.core import models
@@ -34,12 +36,6 @@ def cadastro(request):
 	template_name = 'cadastro/cadastro.html'
 	return render(request,template_name,context)
 
-# class Cadastro(CreateView):
-
-# 	model = Inscrito
-# 	template_name = 'cadastro.html'
-# 	form_class = Inscrevase
-
 class Dashboard(TemplateView):
 
 	template_name = 'cadastro/dashboard.html'
@@ -47,9 +43,7 @@ class Dashboard(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(Dashboard, self).get_context_data(**kwargs)
 
-		context['lista'] = models.Evento.objects.all()
-
-		context['autoriza'] = EmitirCertificado.objects.filter(inscrito_id=self.request.user.id)
+		context['lista'] = models.Evento.objects.filter(finalizado="Não Finalizado")
 
 		return context
 
@@ -69,14 +63,12 @@ class GeneratePDF(View):
         for n in nome:
             context = {
                 "nome": n.nome,
-                "curso": n.idade,
-                "carga_h": n.evento
             }
         html = template.render(context)
         pdf = render_to_pdf('pdf/certificado.html', context)
         if pdf:
             response = HttpResponse(pdf, content_type='application/pdf')
-            filename = 'Invoice_%s.pdf' %("12341231")
+            filename = 'certificado_%s.pdf' %("ifpb")
             content = "inline; filename='%s'" %(filename)
             download = request.GET.get("download")
             if download:
@@ -117,8 +109,8 @@ class AutorizaView(CreateView):
 	form_class = AutorizarForm #['qt_falta','evento','emitir_cert','inscrito']
 	success_url = reverse_lazy('cadastro:dashboard')
 
-def erro(request):
-	
+def erro(request, pk):
+
 	return render_to_response("cadastro/erro.html")
 
 class PublicarFotos(CreateView):
@@ -134,3 +126,21 @@ class AtividadeEvento(CreateView):
 	template_name = 'admin/cria_atividade.html'
 	form_class = AtividadeForm
 	success_url = reverse_lazy('cadastro:dashboard')
+
+class NoticiasView(CreateView):
+
+	model = models.Noticia
+	template_name = 'admin/noticias.html'
+	form_class = NoticiaForm
+	success_url = reverse_lazy('cadastro:noticias')
+
+class CertificadoView(TemplateView):
+
+	template_name = 'cadastro/certificados.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(CertificadoView, self).get_context_data(**kwargs)
+
+		context['autoriza'] = EmitirCertificado.objects.filter(inscrito_id=self.request.user.id)
+
+		return context

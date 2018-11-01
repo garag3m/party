@@ -24,7 +24,7 @@ class Inscrito(models.Model):
 	rg = models.PositiveIntegerField()
 	telefone = models.CharField(max_length=15)
 	usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='inscritos',on_delete=models.CASCADE)
-	
+
 	def __str__(self):
 		return "%s - CPF nº: %s" %(self.nome, self.cpf)
 
@@ -56,7 +56,7 @@ class EmitirCertificado(models.Model):
 	)
 
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-	inscrito = models.ForeignKey(Inscrito, related_name='inscrito',on_delete=models.CASCADE)
+	inscrito = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='inscrito',on_delete=models.CASCADE)
 	qt_falta = models.CharField("Quantidade de faltas",max_length=3)
 
 	evento = models.ForeignKey(Evento,related_name='evento', on_delete=models.CASCADE)

@@ -1,5 +1,6 @@
 from django.db.models.signals import pre_delete, pre_save
 from . import models
+from app.cadastro import views
 
 
 # def edicao_invalida(sender, instance, **kwargs):

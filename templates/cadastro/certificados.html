@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+  <div class="container">
+    {% for aut in autoriza %}
+      {% if aut.emitir_cert == 0 %}
+        <ul>
+          <li><a href="{% url 'pdf' %}" target="_blank">{{ aut.evento.nome }}</a>-Participação confirmada</li>
+        </ul>
+      {% else %}
+        <ul>
+          <li><a href="#">{{ aut.evento.nome }}</a>-Participação não confirmada</li>
+        </ul>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}

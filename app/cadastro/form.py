@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from .models import Inscrito, Atividade, EmitirCertificado
-from app.core.models import Foto
+from app.core.models import Foto, Noticia
 
 from app.core import models
 from django.contrib.auth import get_user_model
@@ -113,3 +113,9 @@ class AutorizarForm(forms.ModelForm):
 	class Meta:
 		model = EmitirCertificado
 		fields = ['inscrito', 'qt_falta', 'evento', 'emitir_cert']
+
+class NoticiaForm(forms.ModelForm):
+
+	class Meta:
+		model = Noticia
+		fields = ['titulo','autor','texto','data_public','evento']
