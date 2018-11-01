@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 
-from .form import Inscrevase, RegistrarEvento, PublicarFotos, AtividadeForm
+from .form import Inscrevase, RegistrarEvento, PublicarFotos, AtividadeForm, AutorizarForm
 
 from .models import EmitirCertificado, Inscrito, Atividade
 from app.core import models
@@ -110,11 +110,11 @@ class RetornoEvento(TemplateView):
 
     template_name = 'admin/alterar_retorno.html'
 
-class ListaUsuarios(CreateView):
+class AutorizaView(CreateView):
 
 	model = EmitirCertificado
 	template_name = 'admin/usuario.html'
-	fields = ['qt_falta','evento','emitir_cert','inscrito']
+	form_class = AutorizarForm #['qt_falta','evento','emitir_cert','inscrito']
 	success_url = reverse_lazy('cadastro:dashboard')
 
 def erro(request):

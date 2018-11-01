@@ -31,7 +31,7 @@ urlpatterns = [
     path('dashboard/retorno/',login_required(views.RetornoEvento.as_view()), name='alterar-retorno'),
 
     # Emitir certificado
-    path('dashboard/emitir/',login_required(views.ListaUsuarios.as_view()), name='emitir'),
+    path('dashboard/emitir/',login_required(views.AutorizaView.as_view()), name='emitir'),
 
     # Erro
     path('dashboard/excluir-evento/pk/erro/',views.erro, name='erro'),

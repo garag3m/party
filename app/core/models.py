@@ -81,6 +81,7 @@ class Evento(models.Model):
 		verbose_name = "Evento"
 		verbose_name_plural = "Eventos"
 		db_table = "evento"
+		ordering = ('nome',)
 
 class Foto(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -97,6 +98,7 @@ class Foto(models.Model):
     	verbose_name = "Foto"
     	verbose_name_plural = "Fotos"
     	db_table = "foto"
+    	ordering = ('autor',)
 
 class Galeria(models.Model):
 
@@ -111,3 +113,4 @@ class Galeria(models.Model):
 		verbose_name = "Galeria"
 		verbose_name_plural = "Galerias"
 		db_table = "galeria"
+		ordering = ('titulo',)

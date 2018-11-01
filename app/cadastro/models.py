@@ -26,12 +26,13 @@ class Inscrito(models.Model):
 	usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='inscritos',on_delete=models.CASCADE)
 	
 	def __str__(self):
-		return "%s - CPF nº %s" %(self.nome, self.cpf)
+		return "%s - CPF nº: %s" %(self.nome, self.cpf)
 
 	class Meta:
 		verbose_name = "Inscrito"
 		verbose_name_plural = "Inscritos"
 		db_table = 'inscrito'
+		ordering = ('nome',)
 
 class Responsavel(models.Model):
 
@@ -55,7 +56,7 @@ class EmitirCertificado(models.Model):
 	)
 
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-	inscrito = models.ForeignKey(Evento, related_name='inscrito',on_delete=models.CASCADE)
+	inscrito = models.ForeignKey(Inscrito, related_name='inscrito',on_delete=models.CASCADE)
 	qt_falta = models.CharField("Quantidade de faltas",max_length=3)
 
 	evento = models.ForeignKey(Evento,related_name='evento', on_delete=models.CASCADE)
@@ -66,12 +67,17 @@ class EmitirCertificado(models.Model):
 	def __str__(self):
 		return str(self.inscrito)
 
+	class Meta:
+		verbose_name = "Emitir certificado"
+		verbose_name_plural = "Emitir certificados"
+		db_table = 'emitircertificado'
+
 class Atividade(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tipo = models.CharField("Tipo", max_length=255)
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
-    ministrante = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    ministrante = models.CharField("Ministrante", max_length=100)
     titulo = models.CharField("Titulo", max_length=255)
     qt_inscritos = models.PositiveIntegerField(verbose_name="Quantidade de inscritos")
     descricao = models.TextField("Descrição")
