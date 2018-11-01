@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from .models import Inscrito
+from .models import Inscrito, Atividade
+from app.core.models import Foto
 
 from app.core import models
 from django.contrib.auth import get_user_model
@@ -92,3 +93,17 @@ class RegistrarEvento(forms.ModelForm):
     class Meta:
     	model = models.Evento
     	fields = ['nome', 'finalizado','descricao','edicao','tema','carga_h','data','data_fim']
+
+
+class PublicarFotos(forms.ModelForm):
+
+	class Meta:
+
+		model = Foto
+		fields = ['autor','descricao','imagem','galeria']
+
+class AtividadeForm(forms.ModelForm):
+
+	class Meta:
+		model = Atividade
+		fields = ['tipo','evento','ministrante','titulo','qt_inscritos','descricao','data','local','carga_h']

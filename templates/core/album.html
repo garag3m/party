@@ -5,6 +5,7 @@
 {% block content %}
   {% for foto in fotos %}
     <div class="container">
+    	<h2>{{ foto.galeria.evento.nome }}</h2>
       <img src="{{ foto.imagem.url }}">
     </div>
   {% endfor %}

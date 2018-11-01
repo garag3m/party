@@ -136,11 +136,14 @@
           <a href="{% url 'cadastro:emitir' %}">
             <i class="fa fa-dashboard"></i> <span>Autorizar emissão dos certificados</span>
           </a>
-          <a href="{% url 'cadastro:emitir' %}">
+          <a href="{% url 'cadastro:publicar' %}">
             <i class="fa fa-dashboard"></i> <span>Publicar fotos</span>
           </a>
           <a href="{% url 'cadastro:emitir' %}">
             <i class="fa fa-dashboard"></i> <span>Publicar noticias</span>
+          </a>
+          <a href="{% url 'cadastro:atividade' %}">
+            <i class="fa fa-dashboard"></i> <span>Atividades</span>
           </a>
         {% endif %}
           {% if user.is_authenticated %}

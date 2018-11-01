@@ -1,8 +1,8 @@
-
 from django.shortcuts import render, redirect, get_object_or_404, render_to_response
-from .form import Inscrevase, RegistrarEvento
 
-from .models import EmitirCertificado, Inscrito
+from .form import Inscrevase, RegistrarEvento, PublicarFotos, AtividadeForm
+
+from .models import EmitirCertificado, Inscrito, Atividade
 from app.core import models
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
@@ -115,8 +115,22 @@ class ListaUsuarios(CreateView):
 	model = EmitirCertificado
 	template_name = 'admin/usuario.html'
 	fields = ['qt_falta','evento','emitir_cert','inscrito']
-	success_url = reverse_lazy('cadastro:cadastro-evento')
+	success_url = reverse_lazy('cadastro:dashboard')
 
 def erro(request):
 	
 	return render_to_response("cadastro/erro.html")
+
+class PublicarFotos(CreateView):
+
+	model = models.Evento
+	template_name = 'admin/cadastro_evento.html'
+	form_class = PublicarFotos
+	success_url = reverse_lazy('cadastro:dashboard')
+
+class AtividadeEvento(CreateView):
+
+	model = Atividade
+	template_name = 'admin/cria_atividade.html'
+	form_class = AtividadeForm
+	success_url = reverse_lazy('cadastro:dashboard')

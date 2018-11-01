@@ -1,4 +1,5 @@
 import uuid
+import datetime
 from django.utils import timezone
 from django.contrib.auth.models import User
 from app.core.models import Evento
@@ -23,8 +24,7 @@ class Inscrito(models.Model):
 	rg = models.PositiveIntegerField()
 	telefone = models.CharField(max_length=15)
 	usuario = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='inscritos',on_delete=models.CASCADE)
-	evento = models.ForeignKey(Evento,on_delete=models.CASCADE, null=True, blank=True)
-
+	
 	def __str__(self):
 		return "%s - CPF nº %s" %(self.nome, self.cpf)
 
@@ -50,17 +50,17 @@ class Responsavel(models.Model):
 class EmitirCertificado(models.Model):
 
 	AUTORIZAR = (
-        (0,"Autorizo"),
-        (1,"Não autorizo")
-    )
-    
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    inscrito = models.ForeignKey(Evento, on_delete=models.CASCADE)
-    qt_falta = models.CharField("Quantidade de faltas",max_length=3)
+		(0,"Autorizo"),
+		(1,"Não autorizo")
+	)
 
-    evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
-    emitir_cert = models.IntegerField(verbose_name="Emissão do certificado",
-        choices = AUTORIZAR
+	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	inscrito = models.ForeignKey(Evento, related_name='inscrito',on_delete=models.CASCADE)
+	qt_falta = models.CharField("Quantidade de faltas",max_length=3)
+
+	evento = models.ForeignKey(Evento,related_name='evento', on_delete=models.CASCADE)
+	emitir_cert = models.IntegerField(verbose_name="Emissão do certificado",
+    	choices = AUTORIZAR
     )
 
 	def __str__(self):

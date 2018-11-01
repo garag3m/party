@@ -81,6 +81,15 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'eventos.db'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'eventos',
+    #     # 'NAME': os.path.join(BASE_DIR, 'eventos'),
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'qwerty123',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '', # 8000 is default
+    # }
 }
 
 
@@ -108,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Fortaleza'
 
 USE_I18N = True
 

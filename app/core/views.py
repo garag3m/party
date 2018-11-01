@@ -9,8 +9,6 @@ from django.views.generic.edit import CreateView
 
 from django.http import HttpResponseRedirect
 
-from . import form
-
 # Create your views here.
 
 class IndexView(TemplateView):
@@ -47,16 +45,17 @@ class VisualizaAlbum(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(VisualizaAlbum, self).get_context_data(**kwargs)
 
-		context['fotos'] = Foto.objects.filter(id=self.kwargs['pk'])
+		gal = Galeria.objects.filter(evento_id=self.kwargs['pk'])
+		context['fotos'] = Foto.objects.filter(galeria_id=gal[0])
 		return context
 
 # class GaleriaDeFotos(CreateView):
 
 # class PublicarFotos(CreateView):
-#
+
 # 	model = models.Evento
 # 	template_name = 'admin/cadastro_evento.html'
-# 	form_class = RegistrarEvento
+# 	form_class = form.PublicarFotos
 # 	success_url = reverse_lazy('cadastro:cadastro-evento')
 
 def inscrevase(request, id):
