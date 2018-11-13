@@ -62,9 +62,9 @@ def inscrevase(request, id):
 
 	event = Evento.objects.get(id=id)
 
-	ins = models.Inscrito.objects.get(usuario=request.user.id)
+	inscrito = models.Inscrito.objects.get(usuario=request.user.id)
+	ins = models.InscritoEvento(user_id=inscrito.id, evento_id=event.id)
 	
-	ins.evento = event
 	ins.save()
 
 	return HttpResponseRedirect('/cadastro/dashboard/')

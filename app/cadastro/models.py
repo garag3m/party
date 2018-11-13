@@ -56,7 +56,7 @@ class EmitirCertificado(models.Model):
 	)
 
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-	inscrito = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='inscrito',on_delete=models.CASCADE)
+	inscrito = models.ForeignKey(Inscrito, related_name='inscrito',on_delete=models.CASCADE)
 	qt_falta = models.CharField("Quantidade de faltas",max_length=3)
 
 	evento = models.ForeignKey(Evento,related_name='evento', on_delete=models.CASCADE)
@@ -87,3 +87,14 @@ class Atividade(models.Model):
 
     def __str__(self):
         return "%s - Evento: %s" %(str(self.ministrante.first, self.evento.nome))
+
+class InscritoEvento(models.Model):
+
+	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+	user = models.ForeignKey(Inscrito, related_name='inscrito_evento', on_delete=models.CASCADE)
+
+	evento = models.ForeignKey(Evento, related_name='evento_evento', on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.user

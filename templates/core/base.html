@@ -122,19 +122,36 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">ADMIN</li>
         <li class="treeview">
-          <li><a href="{% url 'core:index' %}"><i class="fa fa-home"></i> <span>Home</span></a></li>
-          <li><a href="{% url 'cadastro:dashboard' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+          <li>
+            <a href="{% url 'core:index' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+          </li>
+          <li>
+            <a href="{% url 'cadastro:dashboard' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+          </li>
           {% if not request.user.is_superuser %}
             {% if user.is_authenticated %}
             {% else %}
               <li><a href="{% url 'cadastro:cadastro' %}"><i class="fa fa-user-circle"></i> <span>Cadastro</span></a></li>
             {% endif %}
           {% else %}
-            <li><a href="{% url 'cadastro:cadastro-evento' %}"><i class="fa fa-book" aria-hidden="true"></i> <span>Cadastrar evento</span></a></li>
-            <li><a href="{% url 'cadastro:emitir' %}"><i class="fa fa-check" aria-hidden="true"></i> <span>Autorizar emissão dos certificados</span></a></li>
-            <li><a href="{% url 'cadastro:publicar' %}"><i class="fa fa-picture-o" aria-hidden="true"></i> <span>Publicar fotos</span></a></li>
-            <li><a href="{% url 'cadastro:noticias' %}">Publicar noticias</a></li>
-            <li><a href="{% url 'cadastro:atividade' %}">Atividades</a></li>
+            <li>
+              <a href="{% url 'cadastro:cadastro-evento' %}"><i class="fa fa-book" aria-hidden="true"></i> <span>Cadastrar evento</span></a>
+            </li>
+            <li>
+              <a href="{% url 'cadastro:emitir' %}"><i class="fa fa-check" aria-hidden="true"></i> <span>Autorizar emissão dos certificados</span></a>
+            </li>
+            <li>
+              <a href="{% url 'cadastro:publicar' %}"><i class="fa fa-picture-o" aria-hidden="true"></i> <span>Publicar fotos</span></a>
+            </li>
+            <li>
+              <a href="{% url 'cadastro:galeria' %}"><i class="fa fa-picture-o" aria-hidden="true"></i> <span>Galeria</span></a>
+            </li>
+            <li>
+              <a href="{% url 'cadastro:noticias' %}">Publicar noticias</a>
+            </li>
+            <li>
+              <a href="{% url 'cadastro:atividade' %}">Atividades</a>
+            </li>
           {% endif %}
 
           {% if user.is_authenticated %}

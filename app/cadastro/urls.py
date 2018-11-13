@@ -39,6 +39,9 @@ urlpatterns = [
     # Publicar fotos
     path('dashboard/publicar-fotos/',login_required(views.PublicarFotos.as_view()), name='publicar'),
 
+    # Galeria de fotos
+    path('dashboard/galeria-fotos/',login_required(views.GaleriaFotos.as_view()), name='galeria'),
+
     # Atividade
     path('dashboard/atividade/',login_required(views.AtividadeEvento.as_view()), name='atividade'),
 

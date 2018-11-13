@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from .models import Inscrito, Atividade, EmitirCertificado
-from app.core.models import Foto, Noticia
 
 from app.core import models
 from django.contrib.auth import get_user_model
@@ -99,7 +98,7 @@ class PublicarFotos(forms.ModelForm):
 
 	class Meta:
 
-		model = Foto
+		model = models.Foto
 		fields = ['autor','descricao','imagem','galeria']
 
 class AtividadeForm(forms.ModelForm):
@@ -117,5 +116,5 @@ class AutorizarForm(forms.ModelForm):
 class NoticiaForm(forms.ModelForm):
 
 	class Meta:
-		model = Noticia
+		model = models.Noticia
 		fields = ['titulo','autor','texto','data_public','evento']

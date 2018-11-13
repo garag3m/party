@@ -4,7 +4,7 @@ from .form import (
 	Inscrevase, RegistrarEvento, PublicarFotos, AtividadeForm, AutorizarForm, NoticiaForm
 )
 
-from .models import EmitirCertificado, Inscrito, Atividade
+from .models import EmitirCertificado, Inscrito, Atividade, InscritoEvento
 from app.core import models
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
@@ -18,6 +18,8 @@ from django.views.generic import View
 from django.template.loader import get_template
 from .utils import render_to_pdf
 from django.template import Context
+
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -53,7 +55,9 @@ class MyInsc(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(MyInsc, self).get_context_data(**kwargs)
-		context['inscricao'] = EmitirCertificado.objects.filter(inscrito_id=self.request.user.id)
+
+		inscrito = Inscrito.objects.filter(usuario=self.request.user.id)
+		context['inscricao'] = InscritoEvento.objects.filter(user_id=inscrito[0])
 		return context
 
 class GeneratePDF(View):
@@ -105,7 +109,7 @@ class RetornoEvento(TemplateView):
 class AutorizaView(CreateView):
 
 	model = EmitirCertificado
-	template_name = 'admin/usuario.html'
+	template_name = 'admin/emitir.html'
 	form_class = AutorizarForm #['qt_falta','evento','emitir_cert','inscrito']
 	success_url = reverse_lazy('cadastro:dashboard')
 
@@ -115,9 +119,16 @@ def erro(request, pk):
 
 class PublicarFotos(CreateView):
 
-	model = models.Evento
-	template_name = 'admin/cadastro_evento.html'
+	model = models.Foto
+	template_name = 'admin/fotos.html'
 	form_class = PublicarFotos
+	success_url = reverse_lazy('cadastro:dashboard')
+
+class GaleriaFotos(CreateView):
+
+	model = models.Galeria
+	template_name = 'admin/galeria.html'
+	fields = ['titulo', 'evento']
 	success_url = reverse_lazy('cadastro:dashboard')
 
 class AtividadeEvento(CreateView):
@@ -141,6 +152,7 @@ class CertificadoView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(CertificadoView, self).get_context_data(**kwargs)
 
-		context['autoriza'] = EmitirCertificado.objects.filter(inscrito_id=self.request.user.id)
+		inscrito = Inscrito.objects.filter(usuario=self.request.user.id)
+		context['autoriza'] = EmitirCertificado.objects.filter(inscrito_id=inscrito[0])
 
 		return context

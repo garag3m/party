@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'app.cadastro',
     'app.core',
     'widget_tweaks',
+
+    'imagekit',
 ]
 
 MIDDLEWARE = [

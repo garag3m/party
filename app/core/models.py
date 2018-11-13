@@ -92,12 +92,8 @@ class Foto(models.Model):
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	autor = models.CharField("Autor",max_length=100)
 	descricao = models.CharField("Descrição",max_length=255)
-	imagem = models.FileField(upload_to='imagem', verbose_name="Imagem")
+	imagem = models.ImageField(upload_to='imagem', verbose_name="Imagem")
 
-	image = ImageSpecField(
-		source='imagem', processors=[ResizeToFill(50, 50)], format='JPEG',
-		options={'quality':60}
-	)
 	galeria = models.ForeignKey("Galeria", on_delete=models.CASCADE, related_name='fotos')
 
 	def __str__(self):
